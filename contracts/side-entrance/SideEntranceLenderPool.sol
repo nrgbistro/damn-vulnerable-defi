@@ -32,7 +32,7 @@ contract SideEntranceLenderPool {
         
         IFlashLoanEtherReceiver(msg.sender).execute{value: amount}();
 
-        require(address(this).balance >= balanceBefore, "Flash loan hasn't been paid back");        
+        require(address(this).balance >= balanceBefore, "Flash loan hasn't been paid back");
     }
 }
  

