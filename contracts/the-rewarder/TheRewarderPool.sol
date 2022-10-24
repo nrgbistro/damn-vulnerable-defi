@@ -6,6 +6,7 @@ import "./RewardToken.sol";
 import "../DamnValuableToken.sol";
 import "./AccountingToken.sol";
 
+
 /**
  * @title TheRewarderPool
  * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.xyz)
@@ -80,7 +81,6 @@ contract TheRewarderPool {
                 lastRewardTimestamps[msg.sender] = block.timestamp;
             }
         }
-
         return rewards;     
     }
 

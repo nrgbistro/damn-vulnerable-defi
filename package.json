@@ -36,5 +36,7 @@
 		"hardhat-dependency-compiler": "^1.1.1",
 		"solidity-coverage": "^0.8.2"
 	},
-	"dependencies": {}
+	"dependencies": {
+		"solidity": "^0.0.1"
+	}
 }
