@@ -11,7 +11,6 @@ import "./SimpleGovernance.sol";
  * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.xyz)
  */
 contract SelfiePool is ReentrancyGuard {
-
     using Address for address;
 
     ERC20Snapshot public token;
@@ -20,7 +19,10 @@ contract SelfiePool is ReentrancyGuard {
     event FundsDrained(address indexed receiver, uint256 amount);
 
     modifier onlyGovernance() {
-        require(msg.sender == address(governance), "Only governance can execute this action");
+        require(
+            msg.sender == address(governance),
+            "Only governance can execute this action"
+        );
         _;
     }
 
@@ -43,7 +45,10 @@ contract SelfiePool is ReentrancyGuard {
         );
         uint256 balanceAfter = token.balanceOf(address(this));
 
-        require(balanceAfter >= balanceBefore, "Flash loan hasn't been paid back");
+        require(
+            balanceAfter >= balanceBefore,
+            "Flash loan hasn't been paid back"
+        );
     }
 
     function drainAllFunds(address receiver) external onlyGovernance {
