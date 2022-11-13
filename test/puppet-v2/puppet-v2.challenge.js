@@ -126,7 +126,6 @@ describe("[Challenge] Puppet v2", function () {
 				attacker.address,
 				(await ethers.provider.getBlock("latest")).timestamp * 2
 			);
-
 		await this.weth
 			.connect(attacker)
 			.deposit({ value: ethers.utils.parseEther("29.5") });
